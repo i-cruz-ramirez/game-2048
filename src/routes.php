@@ -1,10 +1,13 @@
 <?php
-// Routes
 
-$app->get('/[{name}]', function ($request, $response, $args) {
-    // Sample log message
+use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
+
+$app->get('/', function (Request $req, Response $res, $args) {
     $this->logger->info("Slim-Skeleton '/' route");
+    return $this->renderer->render($res, 'index.phtml', $args);
+});
 
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+$app->get('/process', function (Request $req,  Response $res, $args = []) {
+    return $res->withStatus(400)->write('Bad Request');
 });
