@@ -10,5 +10,13 @@ $app->get('/', function (Request $req, Response $res) {
 });
 
 $app->post('/process', function (Request $request, Response $response) {
-    return $res->withStatus(400)->write('Bad Request');
+	$data = $request->getParsedBody();
+	$rules = isset($data['rules']) ? filter_var($data['rules'], FILTER_SANITIZE_STRING) : "";
+	$lines = explode("\n",$rules);
+
+	if($lines > 5){
+
+	}
+	
+    return $response->withJson($lines, 201);
 });
