@@ -1,8 +1,6 @@
-# Slim Framework 3 Skeleton Application
+# Game 2048 / Slim Framework 3 
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
-
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+2048 es un juego que consiste en mover casillas, las cuales contienen un número que es potencia de dos, hasta conseguir que una de ellas sume 2048. El tablero consiste de una malla de 4​×4 con una configuración inicial y cuyos movimientos posibles son: Izquierda, Derecha, Arriba, Abajo. Cada vez que se realiza un movimiento, todas las casillas se desplazan en esa dirección todo lo que sea posible y si dos casillas con el mismo número quedan juntas, se sumarán. 
 
 ## Install the Application
 
