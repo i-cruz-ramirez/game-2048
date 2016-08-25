@@ -44,7 +44,7 @@ $(document).ready(function() {
 				});
 			}
 		}else{
-			console.log("Debe haber más de 5 lineas");
+			sweetAlert("Oops..","Debe haber más de 5 líneas","error");
 		}
 	});
 
@@ -53,7 +53,7 @@ $(document).ready(function() {
 	{
 		var n = parseInt(lines[index]);
 		if(n < 1 || n > 100000){
-			console.log("cantidad de movimientos invalido");
+			sweetAlert("Oops..","Cantidad de movimientos inválida","error");
 			ok = false;
 		}
 		return n;
@@ -66,12 +66,12 @@ $(document).ready(function() {
 		if(values.length == 4 && areNumbers(values)){
 			for(i = 5; i<values;i++){
 				if(! power_of_2(values[i])){
-					console.log("un numero no es valido (fila:"+(index+1)+")");
+					sweetAlert("Oops..","Un número no es valido (fila:"+(index+1)+")","error");
 					ok = false;
 				}
 			}
 		}else{
-			console.log("la cantidad de numeros no es la requerida (fila:"+(index+1)+")");
+			sweetAlert("Oops..","La cantidad de números no es la requerida (fila:"+(index+1)+")","error");
 			ok = false;
 		}
 		return line;
@@ -81,7 +81,7 @@ $(document).ready(function() {
 	{
 		var haystack = ["Izquierda", "Derecha", "Arriba", "Abajo"];
 		if(haystack.indexOf(line) === -1){
-			console.log("la palabra :"+(line)+" es incorrecta (debe ser Izquierda, Derecha, Arriba, Abajo)");
+			sweetAlert("Oops..","La palabra :"+(line)+" es incorrecta (debe ser Izquierda, Derecha, Arriba, Abajo)","error");
 			ok = false;
 		}
 		return line;
