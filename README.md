@@ -15,7 +15,6 @@ Corre este comando desde el directorio donde lo deseas instalar.
   - Dirigirse desde la terminal a la ubicacion donde se establezca el proyecto
   - Ejecutarlo de esta forma:
 
-```
-$ php -S 0.0.0.0:8080 -t public public/index.php
+	php -S 0.0.0.0:8080 -t public public/index.php
 
 Abrir ruta http://0.0.0.0:8080
