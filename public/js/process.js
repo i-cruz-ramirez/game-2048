@@ -1,11 +1,17 @@
 $(document).ready(function() {
 
 	var ok = true;
+	var gridAjax = [];
+	var quantiyAjax = 0;
+	var movementsAjax = [];
+
 
 	$("#sender").on("click", ":submit", function(e){
 		e.preventDefault();
-
 		ok = true;
+		movementsAjax = [];
+		gridAjax = [];
+		quantiyAjax = 0;
 
 		var text = $("#rules").val();
 		var lines = text.split(/\r|\r\n|\n/);
@@ -14,25 +20,26 @@ $(document).ready(function() {
 		if(lines.length > 5){
 
 			// Validate numbers by line
-			reviewNumbersLine(0, lines);
-			reviewNumbersLine(1, lines);
-			reviewNumbersLine(2, lines);
-			reviewNumbersLine(3, lines);
+			gridAjax.push(reviewNumbersLine(0, lines));
+			gridAjax.push(reviewNumbersLine(1, lines));
+			gridAjax.push(reviewNumbersLine(2, lines));
+			gridAjax.push(reviewNumbersLine(3, lines));
 
 			// Validate movements quantity
-			var n = reviewMovementQuantity(4, lines);
+			quantiyAjax = reviewMovementQuantity(4, lines);
 
 			// Validate movements
-			for(i = 0; i<n;i++){
-				reviewWordLine(lines[i + 5]);
+			for(i = 0; i<quantiyAjax;i++){
+				movementsAjax.push(reviewWordLine(lines[i + 5]));
 			}
 
-			if(ok)
-			{
+			if(ok){
 				$.ajax({ type: "POST", url: "http://0.0.0.0:8080/process",
-				    data: { rules: $("#rules").val()},
+				    data: { grid: gridAjax, quantity: quantiyAjax, movements: movementsAjax},
 				    success: function(data) {
-				console.log(data);
+						if(data.result){
+							$("#result").val(data.grid);
+						}
 				    }
 				});
 			}
@@ -54,7 +61,8 @@ $(document).ready(function() {
 
 	function reviewNumbersLine(index, lines)
 	{
-		var values = lines[index].split(" ");
+		var line = lines[index];
+		var values = line.split(" ");
 		if(values.length == 4 && areNumbers(values)){
 			for(i = 5; i<values;i++){
 				if(! power_of_2(values[i])){
@@ -66,6 +74,7 @@ $(document).ready(function() {
 			console.log("la cantidad de numeros no es la requerida (fila:"+(index+1)+")");
 			ok = false;
 		}
+		return line;
 	}
 
 	function reviewWordLine(line)
@@ -75,7 +84,7 @@ $(document).ready(function() {
 			console.log("la palabra :"+(line)+" es incorrecta (debe ser Izquierda, Derecha, Arriba, Abajo)");
 			ok = false;
 		}
-		console.log(line);
+		return line;
 	}
 
 	// Return functions
