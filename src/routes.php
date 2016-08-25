@@ -10,8 +10,9 @@ $app->get('/', function (Request $req, Response $res) {
 });
 
 $app->post('/process', function (Request $request, Response $response) {
+	$json = array();
 	$data = $request->getParsedBody();
-
+	
 	// Recibimos la variables
 	$grid = isset($data['grid']) ? $data['grid'] : array();
 	$quantity = isset($data['quantity']) ? (int)$data['quantity']: "";
@@ -19,9 +20,9 @@ $app->post('/process', function (Request $request, Response $response) {
 
 	// Validación de parametros
 	if(count($grid) != 4 && count($movements) != $quantity){
-		$error = array();
-		$error[] = "No se cumplen con las reglas iniciales";
-		return $response->withJson($error, 201);
+		$json["messages"] = "No se cumplen con las reglas iniciales";
+		$json["result"] = "No se cumplen con las reglas iniciales";
+		return $response->withJson($json, 201);
 	}
 
 	// Convertimos el grid en array
@@ -45,8 +46,9 @@ $app->post('/process', function (Request $request, Response $response) {
 				break;
 		}
 	}
-	$grid = gridToString($grid);
-	return $response->withJson(array("result"=>true, "grid" => $grid), 201);
+	$json["grid"] = gridToString($grid);
+	$json["result"] = true;
+	return $response->withJson($json, 201);
 });
 
 // Aquí movemos el grid a la derecha
