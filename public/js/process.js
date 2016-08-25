@@ -27,8 +27,14 @@ $(document).ready(function() {
 				reviewWordLine(lines[i + 5]);
 			}
 
-			if(ok){
-				console.log("Aquí va a dispararse el servicio");
+			if(ok)
+			{
+				$.ajax({ type: "POST", url: "http://0.0.0.0:8080/process",
+				    data: { rules: $("#rules").val()},
+				    success: function(data) {
+				console.log(data);
+				    }
+				});
 			}
 		}else{
 			console.log("Debe haber más de 5 lineas");
