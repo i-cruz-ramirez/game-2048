@@ -15,11 +15,10 @@ $app->post('/process', function (Request $request, Response $response) {
 	$lines = explode("\n",$rules);
 
 	if(count($lines) > 5){
-		$lines[0];
-		$lines[1];
-		$lines[2];
-		$lines[3];
-		$lines[4];
+		for($c = 0; $c < 4; $c++){
+			$numbers = explode(" ",$lines[0]);
+		}
+		
 	}
 
     return $response->withJson($lines, 201);
