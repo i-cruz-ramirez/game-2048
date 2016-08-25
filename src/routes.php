@@ -29,7 +29,7 @@ $app->post('/process', function (Request $request, Response $response) {
 
 	// Iteramos por cada movimiento recibido
 	foreach ($movements as $key => $movement) {
-		// Ecogemos el tipo de movimiento
+		// Ecogemos el tipo de movimiento y recibimos el mismo grid para el siguiente movimeiento
 		switch ($movement) {
 			case 'Izquierda':
 				$grid = moveLeftGrid($grid);
